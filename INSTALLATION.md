@@ -11,31 +11,10 @@ This guide will walk you through installing and setting up the Godot VFX Library
 
 ## 🚀 Installation Methods
 
-### Method 1: Asset Library (Recommended)
-
-1. **Open Godot Engine**
-   - Launch Godot 4.5+
-   - Open your existing project or create a new one
-
-2. **Access Asset Library**
-   - Click the **AssetLib** tab (next to FileSystem)
-   - Search for "VFX Library" or "Godot VFX Library"
-
-3. **Install Plugin**
-   - Click on the VFX Library result
-   - Click **Download**
-   - Click **Install** when download completes
-   - Choose installation folder (default: `addons/vfx_library`)
-
-4. **Enable Plugin**
-   - Go to **Project** → **Project Settings**
-   - Click **Plugins** tab
-   - Find "VFX Library" and check **Enable**
-
-### Method 2: Manual Download
+### Method 1: Manual Download
 
 1. **Download Release**
-   - Visit [GitHub Releases](https://github.com/yourusername/godot-vfx-library/releases)
+   - Visit [GitHub Releases](https://github.com/haowg/GODOT-VFX-LIBRARY/releases)
    - Download the latest `vfx-library-vX.X.X.zip`
    - Extract the archive
 
@@ -51,7 +30,7 @@ This guide will walk you through installing and setting up the Godot VFX Library
    - Go to **Project** → **Project Settings** → **Plugins**
    - Find "VFX Library" and check **Enable**
 
-### Method 3: Git Clone
+### Method 2: Git Clone
 
 1. **Clone Repository**
    ```bash
@@ -63,12 +42,12 @@ This guide will walk you through installing and setting up the Godot VFX Library
    - Open project in Godot
    - Enable plugin in Project Settings
 
-### Method 4: Git Submodule
+### Method 3: Git Submodule
 
 1. **Add Submodule**
    ```bash
    cd your-project
-   git submodule add https://github.com/yourusername/godot-vfx-library.git addons/vfx_library
+   git submodule add https://github.com/haowg/GODOT-VFX-LIBRARY.git addons/vfx_library
    git submodule update --init --recursive
    ```
 
@@ -147,10 +126,11 @@ If autoloads aren't added automatically:
 
 ## 🔧 Troubleshooting
 
-### Plugin Not Showing in Asset Library
+### Installation Issues
 
-- **Solution**: Check Godot version (needs 4.5+)
-- **Alternative**: Use manual installation method
+- **Solution**: Ensure Godot version is 4.5+
+- **Check**: Verify all files copied correctly to `addons/vfx_library/`
+- **Alternative**: Try different installation method (manual vs Git)
 
 ### "VFX" or "EnvVFX" Not Found Error
 
@@ -261,13 +241,6 @@ res://addons/vfx_library/effects/blood_splash.tscn: No such file
 
 ## 🔄 Updates
 
-### Updating via Asset Library
-
-1. Go to **AssetLib**
-2. Search for "VFX Library"  
-3. Click **Download** on newer version
-4. Choose **Update** when prompted
-
 ### Updating Manual Installation
 
 1. **Backup Current**:
@@ -275,7 +248,7 @@ res://addons/vfx_library/effects/blood_splash.tscn: No such file
    - Note any customizations made
 
 2. **Download New Version**:
-   - Download latest release
+   - Download latest release from GitHub
    - Replace `addons/vfx_library` folder
 
 3. **Restore Customizations**:

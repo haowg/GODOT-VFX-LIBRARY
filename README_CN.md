@@ -36,20 +36,20 @@
 
 ### 安装
 
-1. **资源库安装**（推荐）
-   - 打开 Godot 4.5+
-   - 转到 **资源库** 标签页
-   - 搜索 "VFX Library"
-   - 点击 **下载** → **安装**
-
-2. **手动安装**
+1. **手动安装**
    - 下载最新版本
    - 解压到项目的 `addons/` 文件夹
    - 在项目设置 → 插件中启用 "VFX Library"
 
+2. **Git Clone**
+   ```bash
+   cd your-project/addons/
+   git clone https://github.com/haowg/GODOT-VFX-LIBRARY.git vfx_library
+   ```
+
 3. **Git 子模块**
    ```bash
-   git submodule add https://github.com/yourusername/godot-vfx-library.git addons/vfx_library
+   git submodule add https://github.com/haowg/GODOT-VFX-LIBRARY.git addons/vfx_library
    ```
 
 ### 基本用法

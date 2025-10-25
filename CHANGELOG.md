@@ -150,7 +150,7 @@ This is the first public release of the Godot VFX Library. The library has been 
 - Compatible with Forward+ and Mobile renderers
 
 **Getting Started:**
-1. Install via Asset Library or manual download
+1. Download from GitHub releases or clone repository
 2. Enable the plugin in Project Settings
 3. Run the demo scene to test all effects
 4. Check the documentation for API usage

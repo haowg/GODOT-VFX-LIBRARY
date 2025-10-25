@@ -33,20 +33,20 @@ A comprehensive collection of **35+ particle effects** and **17+ shaders** for G
 
 ### Installation
 
-1. **Asset Library** (Recommended)
-   - Open Godot 4.5+
-   - Go to **AssetLib** tab
-   - Search for "VFX Library"
-   - Click **Download** → **Install**
-
-2. **Manual Installation**
+1. **Manual Installation**
    - Download the latest release
    - Extract to your project's `addons/` folder
    - Enable "VFX Library" in Project Settings → Plugins
 
+2. **Git Clone**
+   ```bash
+   cd your-project/addons/
+   git clone https://github.com/haowg/GODOT-VFX-LIBRARY.git vfx_library
+   ```
+
 3. **Git Submodule**
    ```bash
-   git submodule add https://github.com/yourusername/godot-vfx-library.git addons/vfx_library
+   git submodule add https://github.com/haowg/GODOT-VFX-LIBRARY.git addons/vfx_library
    ```
 
 ### Basic Usage
