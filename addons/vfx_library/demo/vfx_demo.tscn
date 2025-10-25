@@ -1,0 +1,119 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyf4ga8fhw0b4"]
+
+[ext_resource type="Script" uid="uid://csdhijgpgs044" path="res://addons/vfx_library/demo/vfx_demo.gd" id="1_test"]
+[ext_resource type="Texture2D" uid="uid://bygtsi8ywhal" path="res://icon.svg" id="2_icon"]
+
+[node name="VFXTest" type="Node2D"]
+script = ExtResource("1_test")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="ShaderTestSprite" type="Sprite2D" parent="."]
+z_index = -100
+position = Vector2(600, 324)
+texture = ExtResource("2_icon")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="PanelContainer" parent="UI"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 113.0
+offset_bottom = 130.0
+
+[node name="VBox" type="VBoxContainer" parent="UI/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="UI/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "✨ 粒子"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="UI/Panel/VBox"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Panel/VBox"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EffectList" type="ItemList" parent="UI/Panel/VBox/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 8
+
+[node name="ButtonContainer" type="HBoxContainer" parent="UI/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="ClearButton" type="Button" parent="UI/Panel/VBox/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 7
+text = "🗑️"
+
+[node name="ShaderPanel" type="PanelContainer" parent="UI"]
+offset_left = 7.0
+offset_top = 133.0
+offset_right = 112.0
+offset_bottom = 269.0
+
+[node name="VBox2" type="VBoxContainer" parent="UI/ShaderPanel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Title2" type="Label" parent="UI/ShaderPanel/VBox2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.7, 0.4, 1)
+theme_override_font_sizes/font_size = 10
+text = "🎭 着色"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="UI/ShaderPanel/VBox2"]
+layout_mode = 2
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="UI/ShaderPanel/VBox2"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ShaderList" type="ItemList" parent="UI/ShaderPanel/VBox2/ScrollContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 8
+
+[node name="ShaderButtonContainer" type="HBoxContainer" parent="UI/ShaderPanel/VBox2"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="ApplyShaderButton" type="Button" parent="UI/ShaderPanel/VBox2/ShaderButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 7
+text = "✓"
+
+[node name="RemoveShaderButton" type="Button" parent="UI/ShaderPanel/VBox2/ShaderButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 7
+text = "✕"
+
+[node name="HelpPanel" type="PanelContainer" parent="UI"]
+offset_left = 150.0
+offset_top = 14.0
+offset_right = 368.0
+offset_bottom = 34.0
+
+[node name="HelpLabel" type="Label" parent="UI/HelpPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 7
+text = "📌 选择 → 右键生成 | Esc 退出"
+horizontal_alignment = 1
+vertical_alignment = 1

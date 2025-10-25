@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://energy_burst_001"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_energy"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_energy_scale"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.3, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_energy"]
+offsets = PackedFloat32Array(0, 0.4, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.5, 0.8, 1, 1, 0.2, 0.4, 0.8, 0)
+
+[node name="EnergyBurst" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_energy")
+emitting = true
+amount = 30
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.8
+randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 120.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+damping_min = 50.0
+damping_max = 100.0
+scale_amount_min = 3.0
+scale_amount_max = 7.0
+scale_amount_curve = SubResource("Curve_energy_scale")
+color_ramp = SubResource("Gradient_energy")

@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpfg8h1i2j3k4"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_combat"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_combat"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.8, 0.6, 0.4, 0.8, 0.3, 0.3, 0.3, 0)
+
+[node name="CombatParticle" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_combat")
+emitting = true
+amount = 15
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+color_ramp = SubResource("Gradient_combat")

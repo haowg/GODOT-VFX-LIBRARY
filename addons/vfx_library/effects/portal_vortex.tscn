@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://u5pp2rkkl7k7"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_portal"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_portal_scale"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 0.8), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_portal"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.6, 0.3, 1, 1, 0.4, 0.2, 0.8, 0.8, 0.2, 0.1, 0.5, 0)
+
+[node name="PortalVortex" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_portal")
+amount = 200
+lifetime = 1.5
+preprocess = 1.0
+randomness = 0.3
+emission_shape = 1
+emission_sphere_radius = 40.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 50.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 0.3
+orbit_velocity_max = 0.6
+radial_accel_min = -120.0
+radial_accel_max = -120.0
+tangential_accel_min = 50.0
+tangential_accel_max = 100.0
+scale_amount_min = 2.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_portal_scale")
+color_ramp = SubResource("Gradient_portal")

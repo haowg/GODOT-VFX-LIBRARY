@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0rmerk8btitx"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_candle"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_candle_scale"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_candle"]
+offsets = PackedFloat32Array(0, 0.3, 0.7, 1)
+colors = PackedColorArray(1, 1, 0.9, 1, 1, 0.8, 0.3, 1, 0.9, 0.4, 0, 1, 0.2, 0.2, 0.2, 0)
+
+[node name="CandleFlame" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_candle")
+amount = 15
+lifetime = 0.8
+preprocess = 0.5
+randomness = 0.4
+emission_shape = 1
+emission_sphere_radius = 3.0
+direction = Vector2(0, -1)
+spread = 15.0
+gravity = Vector2(0, -200)
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_candle_scale")
+color_ramp = SubResource("Gradient_candle")

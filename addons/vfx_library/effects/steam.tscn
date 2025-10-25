@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://cae3xsr6uwc2"]
+
+[sub_resource type="Curve" id="Curve_steam_scale"]
+_data = [Vector2(0, 0.2), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_steam"]
+offsets = PackedFloat32Array(0, 0.7, 1)
+colors = PackedColorArray(0.8, 0.8, 0.8, 0.6, 0.9, 0.9, 0.9, 0.4, 1, 1, 1, 0)
+
+[node name="Steam" type="CPUParticles2D"]
+emitting = false
+amount = 20
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.8
+randomness = 0.3
+emission_shape = 1
+emission_sphere_radius = 8.0
+direction = Vector2(0, -1)
+spread = 30.0
+gravity = Vector2(0, -50)
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+scale_amount_min = 3.0
+scale_amount_max = 6.0
+scale_amount_curve = SubResource("Curve_steam_scale")
+color_ramp = SubResource("Gradient_steam")

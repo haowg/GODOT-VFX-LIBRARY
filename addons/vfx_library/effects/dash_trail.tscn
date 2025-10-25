@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://dash_trail_001"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_dash"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_dash"]
+offsets = PackedFloat32Array(0, 0.6, 1)
+colors = PackedColorArray(0.8, 0.9, 1, 0.6, 0.5, 0.7, 1, 0.4, 0.3, 0.5, 0.8, 0)
+
+[node name="DashTrail" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_dash")
+emitting = true
+amount = 12
+lifetime = 0.3
+explosiveness = 0.3
+randomness = 0.3
+emission_shape = 1
+emission_sphere_radius = 8.0
+direction = Vector2(0, 0)
+spread = 40.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 30.0
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+color_ramp = SubResource("Gradient_dash")

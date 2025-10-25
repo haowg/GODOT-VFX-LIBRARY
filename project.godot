@@ -1,0 +1,38 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Godot VFX Library"
+config/description="A comprehensive collection of visual effects and shaders for Godot 4"
+run/main_scene="res://addons/vfx_library/demo/vfx_demo.tscn"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+VFX="*res://addons/vfx_library/vfx.gd"
+EnvVFX="*res://addons/vfx_library/env_vfx.gd"
+
+[display]
+
+window/size/viewport_width=1440
+window/size/viewport_height=810
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_height"
+window/stretch/scale=3.0
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/vfx_library/plugin.cfg")
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

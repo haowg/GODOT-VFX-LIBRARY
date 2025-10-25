@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvq8x7y3m4n5p"]
+
+[ext_resource type="Texture2D" uid="uid://myifb78r1npn" path="res://addons/vfx_library/assets/effect/fire_particle.png" id="1_fire"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fire"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_scale"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.11, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_36div"]
+offsets = PackedFloat32Array(0.05785124, 0.10950413, 0.19214876, 0.6859504, 0.9359504)
+colors = PackedColorArray(1, 1, 1, 1, 0.869982, 0.7395095, 0.00016090597, 1, 0.97070014, 0.17688793, 3.6260506e-05, 1, 1, 0.0132161975, 0, 1, 0.32399637, 0.24070574, 0.23982917, 1)
+
+[node name="TorchFire" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_fire")
+amount = 50
+texture = ExtResource("1_fire")
+lifetime = 0.6
+preprocess = 1.0
+randomness = 0.3
+emission_shape = 1
+emission_sphere_radius = 8.0
+direction = Vector2(0, -1)
+spread = 20.0
+gravity = Vector2(0, -450)
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+angular_velocity_min = -360.0
+angular_velocity_max = 360.0
+scale_amount_min = 0.5
+scale_amount_curve = SubResource("Curve_scale")
+color_ramp = SubResource("Gradient_36div")

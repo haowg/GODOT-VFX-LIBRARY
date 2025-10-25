@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://bda44yts7vxd3"]
+
+[ext_resource type="Texture2D" uid="uid://drr6daq3sja1c" path="res://addons/vfx_library/assets/effect/spark_particle2.png" id="1_spark"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_spark"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_spark"]
+offsets = PackedFloat32Array(0.0392562, 0.17975207, 0.51033056, 0.83264464, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 0.5, 1, 1, 1, 0.5, 1, 0.95823455, 0.70239985, 0.24279815, 1, 1, 0.3, 0, 0)
+
+[node name="Sparks" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_spark")
+emitting = false
+amount = 30
+texture = ExtResource("1_spark")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 5.0
+direction = Vector2(0, -1)
+spread = 180.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+damping_min = 50.0
+damping_max = 100.0
+scale_amount_min = 0.2
+color_ramp = SubResource("Gradient_spark")

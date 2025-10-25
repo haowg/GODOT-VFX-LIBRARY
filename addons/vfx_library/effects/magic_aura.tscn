@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://ydm00nqr5pf"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_magic"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_nkppv"]
+offsets = PackedFloat32Array(0, 0.26980197, 0.41831684, 0.60148513, 0.9727723)
+colors = PackedColorArray(0.8767706, 0.1587297, 0.1587297, 1, 0.6849108, 0.51192033, 0.17249185, 1, 0.207568, 0.92089695, 0.19699976, 1, 0.34324265, 0.19699976, 0.92089695, 1, 0.4915714, 0.19699976, 0.92089695, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_x3lj0"]
+gradient = SubResource("Gradient_nkppv")
+
+[sub_resource type="Curve" id="Curve_magic_scale"]
+_data = [Vector2(0.019650653, 1), 0.0, -0.09739997, 0, 0, Vector2(0.98908293, 0.0020347834), -2.4685829, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_magic"]
+curve = SubResource("Curve_magic_scale")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_magic"]
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 60.0
+emission_ring_inner_radius = 53.0
+emission_ring_cone_angle = 90.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -17.04
+radial_accel_max = -13.040002
+tangential_accel_min = 19.999998
+tangential_accel_max = 34.999996
+scale_min = 3.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_magic")
+color_ramp = SubResource("GradientTexture1D_x3lj0")
+
+[node name="MagicAura" type="GPUParticles2D"]
+texture_filter = 3
+material = SubResource("CanvasItemMaterial_magic")
+amount = 444
+lifetime = 2.0
+preprocess = 2.0
+randomness = 0.4
+process_material = SubResource("ParticleProcessMaterial_magic")

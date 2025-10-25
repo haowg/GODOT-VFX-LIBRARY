@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://summon_circle_001"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_summon"]
+blend_mode = 1
+
+[sub_resource type="Curve" id="Curve_summon_scale"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_summon"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 0.9, 0.5, 1, 0.8, 0.5, 1, 0.8, 0.5, 0.3, 0.8, 0)
+
+[node name="SummonCircle" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_summon")
+emitting = true
+amount = 25
+lifetime = 1.5
+preprocess = 0.5
+randomness = 0.3
+emission_shape = 2
+emission_rect_extents = Vector2(50, 5)
+direction = Vector2(0, -1)
+spread = 20.0
+gravity = Vector2(0, -50)
+initial_velocity_min = 30.0
+initial_velocity_max = 60.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_summon_scale")
+color_ramp = SubResource("Gradient_summon")
