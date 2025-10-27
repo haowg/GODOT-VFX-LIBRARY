@@ -93,15 +93,22 @@ EnvVFX.create_rain(self, 600)
 
 See the [API Reference](API_REFERENCE.md) for detailed code examples.
 
-## 🎮 Demo
+## 🎮 Interactive Demo
 
-Run the interactive demo scene:
-1. Open `addons/vfx_library/demo/vfx_demo.tscn`
+Experience all effects with the interactive demo scene:
+
+1. Open `addons/vfx_library/demo/vfx_demo.tscn` in Godot
 2. Press **Play Scene** (F6)
-3. Use keyboard shortcuts to test effects:
-   - **Q/W/E/R/T** - Environmental effects
-   - **Z/X/C/V/B** - Elemental combat effects  
-   - **1-9** - Various particle effects
+3. Select effects from the UI list and right-click to spawn them
+4. Test all 35+ particle effects and 17+ shaders in real-time
+
+**Features:**
+- 📋 Browse effects by category (Combat, Weather, Environmental, etc.)
+- 🎨 Test shader effects with animated previews
+- 🧪 Performance testing with multiple simultaneous effects
+- 🎯 Right-click spawning at cursor position
+
+**[View Demo Guide →](addons/vfx_library/demo/README.md)** for complete effect list and usage instructions.
 
 ## 🎨 Customization
 
