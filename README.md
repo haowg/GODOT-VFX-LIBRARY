@@ -38,16 +38,25 @@ A comprehensive collection of **35+ particle effects** and **17+ shaders** for G
    - Extract to your project's `addons/` folder
    - Enable "VFX Library" in Project Settings → Plugins
 
-2. **Git Clone**
+2. **Git Clone** (Recommended)
    ```bash
    cd your-project/addons/
    git clone https://github.com/haowg/GODOT-VFX-LIBRARY.git vfx_library
    ```
+   **Important**: Clone into `addons/vfx_library` (not `GODOT-VFX-LIBRARY`)
 
-3. **Git Submodule**
+3. **Symbolic Link** (Best for Development)
    ```bash
-   git submodule add https://github.com/haowg/GODOT-VFX-LIBRARY.git addons/vfx_library
+   # Clone once to a central location
+   git clone https://github.com/haowg/GODOT-VFX-LIBRARY.git ~/godot-plugins/GODOT-VFX-LIBRARY
+   
+   # Link to your project
+   cd your-project/addons/
+   ln -s ~/godot-plugins/GODOT-VFX-LIBRARY/addons/vfx_library vfx_library
    ```
+   Great for using the same plugin across multiple projects!
+
+For detailed installation instructions and troubleshooting, see [INSTALLATION.md](INSTALLATION.md).
 
 ### Basic Usage
 

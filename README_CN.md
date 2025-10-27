@@ -41,16 +41,25 @@
    - 解压到项目的 `addons/` 文件夹
    - 在项目设置 → 插件中启用 "VFX Library"
 
-2. **Git Clone**
+2. **Git Clone**（推荐）
    ```bash
    cd your-project/addons/
    git clone https://github.com/haowg/GODOT-VFX-LIBRARY.git vfx_library
    ```
+   **重要**: 克隆到 `addons/vfx_library` (而不是 `GODOT-VFX-LIBRARY`)
 
-3. **Git 子模块**
+3. **软链接**（开发推荐）
    ```bash
-   git submodule add https://github.com/haowg/GODOT-VFX-LIBRARY.git addons/vfx_library
+   # 克隆到中心位置（只需一次）
+   git clone https://github.com/haowg/GODOT-VFX-LIBRARY.git ~/godot-plugins/GODOT-VFX-LIBRARY
+   
+   # 在项目中创建软链接
+   cd your-project/addons/
+   ln -s ~/godot-plugins/GODOT-VFX-LIBRARY/addons/vfx_library vfx_library
    ```
+   适合在多个项目中使用同一插件！
+
+详细安装说明和故障排除，请查看 [INSTALLATION.md](INSTALLATION.md)。
 
 ### 基本用法
 

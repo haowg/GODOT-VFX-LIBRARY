@@ -35,30 +35,85 @@ This guide will walk you through installing and setting up the Godot VFX Library
 1. **Clone Repository**
    ```bash
    cd your-project/addons/
-   git clone https://github.com/yourusername/godot-vfx-library.git vfx_library
+   git clone https://github.com/haowg/GODOT-VFX-LIBRARY.git vfx_library
    ```
+   
+   **Important**: Clone directly into `addons/vfx_library` (not `addons/GODOT-VFX-LIBRARY`)
 
 2. **Enable Plugin**
    - Open project in Godot
-   - Enable plugin in Project Settings
+   - Enable plugin in Project Settings → Plugins
 
-### Method 3: Git Submodule
+### Method 3: Symbolic Link (Recommended for Development)
 
-1. **Add Submodule**
+**Best for**: Development, testing, or using the same plugin across multiple projects.
+
+1. **Clone Repository Once**
    ```bash
-   cd your-project
-   git submodule add https://github.com/haowg/GODOT-VFX-LIBRARY.git addons/vfx_library
-   git submodule update --init --recursive
+   # Clone to a central location
+   cd ~/godot-plugins/  # or any location you prefer
+   git clone https://github.com/haowg/GODOT-VFX-LIBRARY.git
    ```
 
-2. **Update Submodule** (for future updates)
+2. **Create Symbolic Link**
    ```bash
-   git submodule update --remote addons/vfx_library
+   # In your project directory
+   cd your-project/addons/
+   ln -s ~/godot-plugins/GODOT-VFX-LIBRARY/addons/vfx_library vfx_library
+   ```
+   
+   **Windows (Command Prompt as Admin)**:
+   ```cmd
+   cd your-project\addons\
+   mklink /D vfx_library C:\path\to\GODOT-VFX-LIBRARY\addons\vfx_library
+   ```
+   
+   **Windows (PowerShell as Admin)**:
+   ```powershell
+   cd your-project\addons\
+   New-Item -ItemType SymbolicLink -Path vfx_library -Target C:\path\to\GODOT-VFX-LIBRARY\addons\vfx_library
    ```
 
 3. **Enable Plugin**
    - Open project in Godot
-   - Enable plugin in Project Settings
+   - Enable plugin in Project Settings → Plugins
+
+**Advantages**:
+- ✅ Update once, reflect in all projects
+- ✅ Easy to develop and test changes
+- ✅ No duplicate files
+- ✅ Git updates apply to all projects immediately
+
+**Note**: Make sure to add `addons/vfx_library` to your project's `.gitignore` if it's a symlink.
+
+### Method 4: Git Submodule
+
+**⚠️ Note**: Due to repository structure, submodule installation requires extra steps.
+
+**Recommended Alternative**: Use Git Clone (Method 2) or Manual Installation (Method 1) instead.
+
+If you must use submodules:
+
+1. **Clone to Temporary Location**
+   ```bash
+   cd your-project
+   git clone https://github.com/haowg/GODOT-VFX-LIBRARY.git temp_vfx
+   ```
+
+2. **Copy Plugin Files**
+   ```bash
+   cp -r temp_vfx/addons/vfx_library addons/
+   rm -rf temp_vfx
+   ```
+
+3. **Add as Submodule** (optional, for tracking updates)
+   ```bash
+   cd addons/vfx_library
+   git init
+   git remote add origin https://github.com/haowg/GODOT-VFX-LIBRARY.git
+   git fetch
+   git checkout -b main origin/main
+   ```
 
 ## ⚙️ Configuration
 
