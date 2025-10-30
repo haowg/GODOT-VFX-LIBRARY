@@ -30,6 +30,26 @@ const CANDLE_FLAME_SCENE = preload("res://addons/vfx_library/effects/candle_flam
 const ASH_PARTICLES_SCENE = preload("res://addons/vfx_library/effects/ash_particles.tscn")
 
 
+# ===== 辅助函数 =====
+
+## 获取当前场景根节点
+func _get_scene_root() -> Node:
+    var scene_root = get_tree().current_scene
+    if not scene_root:
+        push_error("EnvVFX: No current scene found")
+        return null
+    return scene_root
+
+
+## 延迟清理节点（安全的异步清理）
+func _cleanup_delayed(node: Node, delay: float) -> void:
+    await get_tree().create_timer(delay).timeout
+    if is_instance_valid(node):
+        node.queue_free()
+
+
+# ===== 基础环境特效 =====
+
 ## 火把/火焰效果
 func create_torch(parent: Node2D, offset: Vector2 = Vector2.ZERO) -> CPUParticles2D:
     var fire = TORCH_FIRE_SCENE.instantiate()
@@ -58,10 +78,14 @@ func create_falling_leaves(parent: Node2D, width: float = 300.0) -> CPUParticles
 
 ## 蒸汽/烟雾效果（用于温泉、通风口等）
 func create_steam(parent: Node2D, offset: Vector2 = Vector2.ZERO) -> CPUParticles2D:
+    if not is_instance_valid(parent):
+        push_error("EnvVFX: create_steam called with invalid parent")
+        return null
+
     var steam = STEAM_SCENE.instantiate()
     parent.add_child(steam)
     steam.position = offset
-    steam.emitting = true
+    steam.restart()  # 使用 restart() 确保 one_shot 粒子正确发射
     return steam
 
 
@@ -78,23 +102,33 @@ func create_sparks(parent: Node2D, offset: Vector2 = Vector2.ZERO, continuous: b
 ## 木屑飞溅（箱子破碎、木板断裂）
 func create_wood_debris(pos: Vector2, direction: Vector2 = Vector2.RIGHT, parent: Node = null) -> void:
     if parent == null:
-        parent = get_tree().current_scene
+        parent = _get_scene_root()
+        if not parent:
+            return
+
+    if not is_instance_valid(parent):
+        push_error("EnvVFX: create_wood_debris called with invalid parent")
+        return
 
     var debris = WOOD_DEBRIS_SCENE.instantiate()
     parent.add_child(debris)
     debris.global_position = pos
     debris.direction = direction
-    debris.emitting = true
+    debris.restart()  # 使用 restart() 确保 one_shot 粒子正确发射
 
-    # 自动删除
-    await get_tree().create_timer(2.0).timeout
-    debris.queue_free()
+    _cleanup_delayed(debris, 2.0)
 
 
 ## 水花飞溅
 func create_water_splash(pos: Vector2, size: float = 1.0, parent: Node = null) -> void:
     if parent == null:
-        parent = get_tree().current_scene
+        parent = _get_scene_root()
+        if not parent:
+            return
+
+    if not is_instance_valid(parent):
+        push_error("EnvVFX: create_water_splash called with invalid parent")
+        return
 
     var splash = WATER_SPLASH_SCENE.instantiate()
     parent.add_child(splash)
@@ -106,17 +140,21 @@ func create_water_splash(pos: Vector2, size: float = 1.0, parent: Node = null) -
     splash.initial_velocity_max = 150.0 * (1.0 + (size - 1.0) * 0.3)
     splash.scale_amount_min = size
     splash.scale_amount_max = 2.0 * size
-    splash.emitting = true
+    splash.restart()  # 使用 restart() 确保 one_shot 粒子正确发射
 
-    # 自动删除
-    await get_tree().create_timer(1.0).timeout
-    splash.queue_free()
+    _cleanup_delayed(splash, 1.0)
 
 
 ## 尘土扬起（角色落地、重物掉落）
 func create_dust_cloud(pos: Vector2, size: float = 1.0, parent: Node = null) -> void:
     if parent == null:
-        parent = get_tree().current_scene
+        parent = _get_scene_root()
+        if not parent:
+            return
+
+    if not is_instance_valid(parent):
+        push_error("EnvVFX: create_dust_cloud called with invalid parent")
+        return
 
     var dust = DUST_CLOUD_SCENE.instantiate()
     parent.add_child(dust)
@@ -126,7 +164,7 @@ func create_dust_cloud(pos: Vector2, size: float = 1.0, parent: Node = null) -> 
     dust.initial_velocity_max = 50.0 * size
     dust.scale_amount_min = 0.5 * size
     dust.scale_amount_max = 1.5 * size
-    dust.emitting = true
+    dust.restart()  # 使用 restart() 确保 one_shot 粒子正确发射
 
     # 自动删除
     await get_tree().create_timer(2.0).timeout
@@ -195,26 +233,35 @@ func create_portal(parent: Node2D, offset: Vector2 = Vector2.ZERO) -> CPUParticl
 
 ## 闪电链
 func spawn_lightning_chain(pos: Vector2) -> void:
+    var scene_root = _get_scene_root()
+    if not scene_root:
+        return
+
     var lightning = LIGHTNING_CHAIN_SCENE.instantiate()
-    get_tree().current_scene.add_child(lightning)
+    scene_root.add_child(lightning)
     lightning.global_position = pos
-    
-    # 闪电链是 Node2D 容器，包含多个粒子发射器，它们已经在场景中设置为自动发射
-    # 不需要手动设置 emitting，等待所有链完成后清理
-    await get_tree().create_timer(0.4).timeout
-    if is_instance_valid(lightning):
-        lightning.queue_free()
+
+    # 显式重启所有子粒子发射器，确保即使场景文件被编辑器修改也能正常工作
+    for child in lightning.get_children():
+        if child is CPUParticles2D:
+            child.emitting = false  # 先停止
+            child.restart()  # 然后重启，这样 one_shot 粒子会正确发射
+
+    _cleanup_delayed(lightning, 0.4)
 
 
 ## 冰霜效果
 func spawn_ice_frost(pos: Vector2) -> void:
+    var scene_root = _get_scene_root()
+    if not scene_root:
+        return
+
     var frost = ICE_FROST_SCENE.instantiate()
-    get_tree().current_scene.add_child(frost)
+    scene_root.add_child(frost)
     frost.global_position = pos
-    frost.emitting = true
-    await get_tree().create_timer(1.0).timeout
-    if is_instance_valid(frost):
-        frost.queue_free()
+    frost.restart()  # 使用 restart() 而不是设置 emitting，更可靠
+
+    _cleanup_delayed(frost, 1.0)
 
 
 ## 火球拖尾（持续发射）

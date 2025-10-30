@@ -237,7 +237,7 @@ func spawn_combat_particle(effect: Dictionary, pos: Vector2):
     
     # 将元素名称转换为颜色
     var color_map = {
-        "fire": Color.RED,
+        "fire": Color(0.784, 0.238, 0.0, 1.0),
         "ice": Color(0.5, 0.8, 1.0),
         "poison": Color(0.3, 1.0, 0.3),
         "lightning": Color(1.0, 1.0, 0.3),
