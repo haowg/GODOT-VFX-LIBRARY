@@ -1,6 +1,18 @@
 extends Node2D
 ## 特效系统测试场景 - 使用列表选择特效
 
+# 常量定义
+const DEFAULT_WATER_SPLASH_SIZE = 3.0
+const DEFAULT_DUST_CLOUD_SIZE = 3.0
+const DEFAULT_POISON_CLOUD_SIZE = 2.0
+const DEFAULT_MAGIC_AURA_RADIUS = 60.0
+const DEFAULT_LEAVES_WIDTH = 300.0
+const DEFAULT_RAIN_AREA_WIDTH = 400.0
+const DEFAULT_SUMMON_CIRCLE_RADIUS = 60.0
+const DEFAULT_WATERFALL_MIST_WIDTH = 80.0
+const DEFAULT_ASH_AREA_SIZE = Vector2(60, 20)
+const DEFAULT_PARTICLE_COUNT = 20
+
 # UI 节点引用
 @onready var effect_list: ItemList = $UI/Panel/VBox/ScrollContainer/EffectList
 @onready var clear_button: Button = $UI/Panel/VBox/ButtonContainer/ClearButton
@@ -160,14 +172,14 @@ func spawn_env_effect(effect: Dictionary, pos: Vector2):
         if func_name == "create_water_splash":
             # create_water_splash 是异步的，会自动清理
             # 使用更大的 size 参数让粒子更明显
-            env_vfx.call(func_name, pos, 3.0)
+            env_vfx.call(func_name, pos, DEFAULT_WATER_SPLASH_SIZE)
         elif func_name == "create_dust_cloud":
             # create_dust_cloud 是异步的，会自动清理
             # 使用更大的 size 参数让粒子更明显
-            env_vfx.call(func_name, pos, 3.0)
+            env_vfx.call(func_name, pos, DEFAULT_DUST_CLOUD_SIZE)
         elif func_name == "create_poison_cloud":
             # create_poison_cloud 返回粒子节点，可以手动管理
-            var particle = env_vfx.call(func_name, pos, 2.0)
+            var particle = env_vfx.call(func_name, pos, DEFAULT_POISON_CLOUD_SIZE)
             if particle:
                 spawned_effects.append(particle)
         else:
@@ -179,9 +191,9 @@ func spawn_env_effect(effect: Dictionary, pos: Vector2):
             
             if func_name == "create_magic_aura":
                 # 增大半径让光环更明显
-                env_vfx.call(func_name, holder, Color(0.5, 0.3, 1.0), 60.0)
+                env_vfx.call(func_name, holder, Color(0.5, 0.3, 1.0), DEFAULT_MAGIC_AURA_RADIUS)
             elif func_name == "create_falling_leaves":
-                env_vfx.call(func_name, holder, 300.0)
+                env_vfx.call(func_name, holder, DEFAULT_LEAVES_WIDTH)
             elif func_name == "create_sparks":
                 # 火花需要手动触发发射
                 var sparks = env_vfx.call(func_name, holder, Vector2.ZERO, false)
@@ -236,7 +248,7 @@ func spawn_combat_particle(effect: Dictionary, pos: Vector2):
     
     if vfx.has_method("spawn_particles"):
         # spawn_particles 是异步的，会自动清理
-        vfx.spawn_particles(pos, particle_color, 20)
+        vfx.spawn_particles(pos, particle_color, DEFAULT_PARTICLE_COUNT)
     else:
         push_error("方法不存在: VFX.spawn_particles")
 
@@ -301,13 +313,13 @@ func spawn_env_continuous(effect: Dictionary, pos: Vector2):
         
         # 根据不同的函数调用方式
         if func_name in ["create_rain", "create_snow"]:
-            var _result = env_vfx.call(func_name, holder, 400)
+            var _result = env_vfx.call(func_name, holder, DEFAULT_RAIN_AREA_WIDTH)
         elif func_name == "create_summon_circle":
-            var _result = env_vfx.call(func_name, holder, Vector2.ZERO, 60.0)
+            var _result = env_vfx.call(func_name, holder, Vector2.ZERO, DEFAULT_SUMMON_CIRCLE_RADIUS)
         elif func_name == "create_waterfall_mist":
-            var _result = env_vfx.call(func_name, holder, Vector2.ZERO, 80.0)
+            var _result = env_vfx.call(func_name, holder, Vector2.ZERO, DEFAULT_WATERFALL_MIST_WIDTH)
         elif func_name == "create_ash_particles":
-            var _result = env_vfx.call(func_name, holder, Vector2(60, 20))
+            var _result = env_vfx.call(func_name, holder, DEFAULT_ASH_AREA_SIZE)
         else:
             var _result = env_vfx.call(func_name, holder, Vector2.ZERO)
     else:
@@ -565,16 +577,6 @@ func _process(delta: float):
         var direction = Vector2(cos(angle), sin(angle))
         shader_mat.set_shader_parameter("aberration_amount", aberration)
         shader_mat.set_shader_parameter("aberration_direction", direction)
-    
-    elif "灰度" in shader_name:
-        # 灰度：渐变
-        var grayscale = (sin(shader_animation_time * 1.0) + 1.0) * 0.5
-        shader_mat.set_shader_parameter("grayscale_amount", grayscale)
-    
-    elif "色差" in shader_name:
-        # 色差：波动
-        var aberration = 0.002 + sin(shader_animation_time * 3.0) * 0.003
-        shader_mat.set_shader_parameter("aberration_amount", aberration)
     
     elif "晕影" in shader_name:
         # 晕影：呼吸效果
