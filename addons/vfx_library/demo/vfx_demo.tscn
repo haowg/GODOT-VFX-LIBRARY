@@ -30,7 +30,7 @@ theme_override_constants/separation = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0.4, 0.8, 1, 1)
 theme_override_font_sizes/font_size = 10
-text = "✨ 粒子"
+text = "PARTICLES"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="UI/Panel/VBox"]
@@ -71,7 +71,7 @@ theme_override_constants/separation = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.7, 0.4, 1)
 theme_override_font_sizes/font_size = 10
-text = "🎭 着色"
+text = "SHADERS"
 horizontal_alignment = 1
 
 [node name="HSeparator2" type="HSeparator" parent="UI/ShaderPanel/VBox2"]
@@ -114,6 +114,6 @@ offset_bottom = 34.0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_font_sizes/font_size = 7
-text = "📌 选择 → 右键生成 | Esc 退出"
+text = "HELP_INSTRUCTIONS"
 horizontal_alignment = 1
 vertical_alignment = 1
