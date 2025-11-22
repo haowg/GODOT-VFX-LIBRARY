@@ -33,10 +33,16 @@ var shader_animation_time = 0.0  # 用于shader动画
 # 用于跟踪所有生成的特效节点
 var spawned_effects = []
 
+func _enter_tree() -> void:
+    # Add demo translations when demo scene is ran
+    var translation = load("res://addons/vfx_library/demo/vfx_demo.en.translation")
+    TranslationServer.add_translation(translation)        
+    var translation_zh = load("res://addons/vfx_library/demo/vfx_demo.zh.translation")
+    TranslationServer.add_translation(translation_zh)
 
 func _ready():
-    print("=== VFX Test Scene Started ===")
-    
+    print("=== " + tr("VFX_TEST_SCENE") + " ===")
+
     # 检查 Autoload 是否配置
     check_autoloads()
     
@@ -63,67 +69,67 @@ func setup_effects_list():
     """设置特效列表"""
     effects_data = [
         # 基础环境特效
-        {"name": "🔥 火焰 (Torch Fire)", "type": "env", "func": "create_torch"},
-        {"name": "💧 水花 (Water Splash)", "type": "env", "func": "create_water_splash"},
-        {"name": "💨 尘土 (Dust Cloud)", "type": "env", "func": "create_dust_cloud"},
-        {"name": "✨ 火花 (Sparks)", "type": "env", "func": "create_sparks"},
-        {"name": "☁️ 蒸汽 (Steam)", "type": "env", "func": "create_steam"},
-        {"name": "🌟 萤火虫 (Fireflies)", "type": "env", "func": "create_fireflies"},
-        {"name": "🔮 魔法光环 (Magic Aura)", "type": "env", "func": "create_magic_aura"},
-        {"name": "☠️ 毒雾 (Poison Cloud)", "type": "env", "func": "create_poison_cloud"},
-        {"name": "🍂 落叶 (Falling Leaves)", "type": "env", "func": "create_falling_leaves"},
-        {"name": "🪵 木屑 (Wood Debris)", "type": "env_oneshot", "func": "create_wood_debris"},
-        
+        {"name": "EFFECT_TORCH_FIRE", "type": "env", "func": "create_torch"},
+        {"name": "EFFECT_WATER_SPLASH", "type": "env", "func": "create_water_splash"},
+        {"name": "EFFECT_DUST_CLOUD", "type": "env", "func": "create_dust_cloud"},
+        {"name": "EFFECT_SPARKS", "type": "env", "func": "create_sparks"},
+        {"name": "EFFECT_STEAM", "type": "env", "func": "create_steam"},
+        {"name": "EFFECT_FIREFLIES", "type": "env", "func": "create_fireflies"},
+        {"name": "EFFECT_MAGIC_AURA", "type": "env", "func": "create_magic_aura"},
+        {"name": "EFFECT_POISON_CLOUD", "type": "env", "func": "create_poison_cloud"},
+        {"name": "EFFECT_FALLING_LEAVES", "type": "env", "func": "create_falling_leaves"},
+        {"name": "EFFECT_WOOD_DEBRIS", "type": "env_oneshot", "func": "create_wood_debris"},
+
         # 战斗粒子（不同颜色）
-        {"name": "🔴 火粒子 (Fire Particle)", "type": "combat", "element": "fire"},
-        {"name": "🔵 冰粒子 (Ice Particle)", "type": "combat", "element": "ice"},
-        {"name": "🟢 毒粒子 (Poison Particle)", "type": "combat", "element": "poison"},
-        {"name": "🟡 雷粒子 (Lightning Particle)", "type": "combat", "element": "lightning"},
-        {"name": "🟣 暗影粒子 (Shadow Particle)", "type": "combat", "element": "shadow"},
-        
+        {"name": "EFFECT_FIRE_PARTICLE", "type": "combat", "element": "fire"},
+        {"name": "EFFECT_ICE_PARTICLE", "type": "combat", "element": "ice"},
+        {"name": "EFFECT_POISON_PARTICLE", "type": "combat", "element": "poison"},
+        {"name": "EFFECT_LIGHTNING_PARTICLE", "type": "combat", "element": "lightning"},
+        {"name": "EFFECT_SHADOW_PARTICLE", "type": "combat", "element": "shadow"},
+
         # 新增战斗特效
-        {"name": "🩸 血液飞溅 (Blood Splash)", "type": "vfx", "func": "spawn_blood_splash"},
-        {"name": "💥 能量爆发 (Energy Burst)", "type": "vfx", "func": "spawn_energy_burst"},
-        {"name": "💚 治疗效果 (Heal Effect)", "type": "vfx", "func": "spawn_heal_effect"},
-        {"name": "🛡️ 护盾破碎 (Shield Break)", "type": "vfx", "func": "spawn_shield_break"},
-        {"name": "🌀 连击特效 (Combo Ring)", "type": "vfx", "func": "spawn_combo_ring"},
-        {"name": "💨 跳跃尘土 (Jump Dust)", "type": "vfx", "func": "spawn_jump_dust"},
-        {"name": "👻 冲刺残影 (Dash Trail)", "type": "vfx_continuous", "func": "create_dash_trail"},
-        {"name": "⚡ 墙壁火花 (Wall Slide Spark)", "type": "vfx_continuous", "func": "create_wall_slide_spark"},
-        
+        {"name": "EFFECT_BLOOD_SPLASH", "type": "vfx", "func": "spawn_blood_splash"},
+        {"name": "EFFECT_ENERGY_BURST", "type": "vfx", "func": "spawn_energy_burst"},
+        {"name": "EFFECT_HEAL", "type": "vfx", "func": "spawn_heal_effect"},
+        {"name": "EFFECT_SHIELD_BREAK", "type": "vfx", "func": "spawn_shield_break"},
+        {"name": "EFFECT_COMBO_RING", "type": "vfx", "func": "spawn_combo_ring"},
+        {"name": "EFFECT_JUMP_DUST", "type": "vfx", "func": "spawn_jump_dust"},
+        {"name": "EFFECT_DASH_TRAIL", "type": "vfx_continuous", "func": "create_dash_trail"},
+        {"name": "EFFECT_WALL_SPARK", "type": "vfx_continuous", "func": "create_wall_slide_spark"},
+
         # 法术/技能特效
-        {"name": "🌀 传送门漩涡 (Portal Vortex)", "type": "env_continuous", "func": "create_portal"},
-        {"name": "⚡ 电流迸发 (Electric Burst)", "type": "env_oneshot", "func": "spawn_lightning_chain"},
-        {"name": "❄️ 冰霜 (Ice Frost)", "type": "env_oneshot", "func": "spawn_ice_frost"},
-        {"name": "🔥 火球拖尾 (Fireball Trail)", "type": "env_continuous", "func": "create_fireball_trail"},
-        {"name": "🔯 召唤阵 (Summon Circle)", "type": "env_continuous", "func": "create_summon_circle"},
-        
+        {"name": "EFFECT_PORTAL", "type": "env_continuous", "func": "create_portal"},
+        {"name": "EFFECT_LIGHTNING", "type": "env_oneshot", "func": "spawn_lightning_chain"},
+        {"name": "EFFECT_ICE_FROST", "type": "env_oneshot", "func": "spawn_ice_frost"},
+        {"name": "EFFECT_FIREBALL", "type": "env_continuous", "func": "create_fireball_trail"},
+        {"name": "EFFECT_SUMMON", "type": "env_continuous", "func": "create_summon_circle"},
+
         # 环境特效
-        {"name": "🌧️ 雨滴 (Rain)", "type": "env_continuous", "func": "create_rain"},
-        {"name": "❄️ 雪花 (Snow)", "type": "env_continuous", "func": "create_snow"},
-        {"name": "💦 瀑布水雾 (Waterfall Mist)", "type": "env_continuous", "func": "create_waterfall_mist"},
-        {"name": "🔥 篝火烟雾 (Campfire Smoke)", "type": "env_continuous", "func": "create_campfire_smoke"},
-        {"name": "🕯️ 蜡烛火焰 (Candle Flame)", "type": "env_continuous", "func": "create_candle_flame"},
-        {"name": "🌫️ 灰烬飘散 (Ash Particles)", "type": "env_continuous", "func": "create_ash_particles"},
+        {"name": "EFFECT_RAIN", "type": "env_continuous", "func": "create_rain"},
+        {"name": "EFFECT_SNOW", "type": "env_continuous", "func": "create_snow"},
+        {"name": "EFFECT_WATERFALL", "type": "env_continuous", "func": "create_waterfall_mist"},
+        {"name": "EFFECT_CAMPFIRE", "type": "env_continuous", "func": "create_campfire_smoke"},
+        {"name": "EFFECT_CANDLE", "type": "env_continuous", "func": "create_candle_flame"},
+        {"name": "EFFECT_ASH", "type": "env_continuous", "func": "create_ash_particles"},
     ]
     
     # 填充列表
     if effect_list:
         for i in range(effects_data.size()):
-            effect_list.add_item(effects_data[i]["name"])
-        
-        print("✓ 已加载 %d 个特效" % effects_data.size())
+            effect_list.add_item(tr(effects_data[i]["name"]))
+
+        print("✓ " + tr("EFFECTS_LOADED") % effects_data.size())
 
 
 func _on_effect_selected(index: int):
     """选择特效时调用"""
     current_effect_index = index
-    print("选择特效: %s" % effects_data[index]["name"])
+    print(tr("EFFECT_SELECTED") % tr(effects_data[index]["name"]))
 
 
 func _on_clear_button_pressed():
     """清除所有生成的特效"""
-    print("清除所有特效...")
+    print(tr("CLEARING_EFFECTS"))
     var cleared_count = 0
     
     for effect_node in spawned_effects:
@@ -132,7 +138,7 @@ func _on_clear_button_pressed():
             cleared_count += 1
     
     spawned_effects.clear()
-    print("✓ 已清除 %d 个特效" % cleared_count)
+    print("✓ " + tr("EFFECTS_CLEARED") % cleared_count)
 
 
 func spawn_current_effect(pos: Vector2):
@@ -141,7 +147,7 @@ func spawn_current_effect(pos: Vector2):
         return
     
     var effect = effects_data[current_effect_index]
-    print("生成特效: %s 于位置 %v" % [effect["name"], pos])
+    print(tr("SPAWNING_EFFECT") % [tr(effect["name"]), pos])
     
     match effect["type"]:
         "env":
@@ -161,7 +167,7 @@ func spawn_current_effect(pos: Vector2):
 func spawn_env_effect(effect: Dictionary, pos: Vector2):
     """生成环境特效（持续）"""
     if not has_node("/root/EnvVFX"):
-        push_error("EnvVFX 未配置")
+        push_error(tr("AUTOLOAD_ENVVFX_FAILED"))
         return
     
     var env_vfx = get_node("/root/EnvVFX")
@@ -202,13 +208,13 @@ func spawn_env_effect(effect: Dictionary, pos: Vector2):
             else:
                 env_vfx.call(func_name, holder, Vector2.ZERO)
     else:
-        push_error("方法不存在: EnvVFX.%s" % func_name)
+        push_error(tr("METHOD_NOT_FOUND") % func_name)
 
 
 func spawn_env_oneshot(effect: Dictionary, pos: Vector2):
     """生成环境一次性特效"""
     if not has_node("/root/EnvVFX"):
-        push_error("EnvVFX 未配置")
+        push_error(tr("AUTOLOAD_ENVVFX_FAILED"))
         return
     
     var env_vfx = get_node("/root/EnvVFX")
@@ -223,13 +229,13 @@ func spawn_env_oneshot(effect: Dictionary, pos: Vector2):
             env_vfx.call(func_name, pos)
         # 注意：这些函数会自动清理，不需要手动管理
     else:
-        push_error("方法不存在: EnvVFX.%s" % func_name)
+        push_error(tr("METHOD_NOT_FOUND") % func_name)
 
 
 func spawn_combat_particle(effect: Dictionary, pos: Vector2):
     """生成战斗粒子（不同颜色）"""
     if not has_node("/root/VFX"):
-        push_error("VFX 未配置")
+        push_error(tr("AUTOLOAD_VFX_FAILED"))
         return
     
     var vfx = get_node("/root/VFX")
@@ -250,13 +256,13 @@ func spawn_combat_particle(effect: Dictionary, pos: Vector2):
         # spawn_particles 是异步的，会自动清理
         vfx.spawn_particles(pos, particle_color, DEFAULT_PARTICLE_COUNT)
     else:
-        push_error("方法不存在: VFX.spawn_particles")
+        push_error(tr("METHOD_NOT_FOUND") % "spawn_particles")
 
 
 func spawn_vfx_effect(effect: Dictionary, pos: Vector2):
     """生成 VFX 特效（一次性）"""
     if not has_node("/root/VFX"):
-        push_error("VFX 未配置")
+        push_error(tr("AUTOLOAD_VFX_FAILED"))
         return
     
     var vfx = get_node("/root/VFX")
@@ -271,13 +277,13 @@ func spawn_vfx_effect(effect: Dictionary, pos: Vector2):
             vfx.call(func_name, pos)
         # 注意：这些函数会自动清理，不需要手动管理
     else:
-        push_error("方法不存在: VFX.%s" % func_name)
+        push_error(tr("METHOD_NOT_FOUND") % func_name)
 
 
 func spawn_vfx_continuous(effect: Dictionary, pos: Vector2):
     """生成 VFX 持续特效"""
     if not has_node("/root/VFX"):
-        push_error("VFX 未配置")
+        push_error(tr("AUTOLOAD_VFX_FAILED"))
         return
     
     var vfx = get_node("/root/VFX")
@@ -292,13 +298,13 @@ func spawn_vfx_continuous(effect: Dictionary, pos: Vector2):
         
         var _result = vfx.call(func_name, holder, Vector2.ZERO)
     else:
-        push_error("方法不存在: VFX.%s" % func_name)
+        push_error(tr("METHOD_NOT_FOUND") % func_name)
 
 
 func spawn_env_continuous(effect: Dictionary, pos: Vector2):
     """生成环境持续特效"""
     if not has_node("/root/EnvVFX"):
-        push_error("EnvVFX 未配置")
+        push_error(tr("AUTOLOAD_ENVVFX_FAILED"))
         return
     
     var env_vfx = get_node("/root/EnvVFX")
@@ -323,23 +329,23 @@ func spawn_env_continuous(effect: Dictionary, pos: Vector2):
         else:
             var _result = env_vfx.call(func_name, holder, Vector2.ZERO)
     else:
-        push_error("方法不存在: EnvVFX.%s" % func_name)
+        push_error(tr("METHOD_NOT_FOUND") % func_name)
 
 
 func check_autoloads():
     """检查必要的 Autoload 是否配置"""
-    print("\n--- 检查 Autoload 配置 ---")
-    
+    print("\n--- " + tr("CHECK_AUTOLOADS") + " ---")
+
     if has_node("/root/EnvVFX"):
-        print("✓ EnvVFX 已配置")
+        print("✓ " + tr("AUTOLOAD_ENVVFX_LOADED"))
     else:
-        push_error("✗ EnvVFX 未配置！请在项目设置中添加 Autoload")
-    
+        push_error("✗ " + tr("AUTOLOAD_ENVVFX_ERROR"))
+
     if has_node("/root/VFX"):
-        print("✓ VFX 已配置")
+        print("✓ " + tr("AUTOLOAD_VFX_LOADED"))
     else:
-        push_error("✗ VFX 未配置！请在项目设置中添加 Autoload")
-    
+        push_error("✗ " + tr("AUTOLOAD_VFX_ERROR"))
+
     print("-------------------------\n")
 
 
@@ -348,41 +354,41 @@ func check_autoloads():
 func setup_shaders_list():
     """初始化shader列表"""
     shaders_data = [
-        {"name": "🔥 燃烧", "path": "res://addons/vfx_library/shaders/burning.gdshader"},
-        {"name": "❄️ 冰冻", "path": "res://addons/vfx_library/shaders/frozen.gdshader"},
-        {"name": "☠️ 中毒", "path": "res://addons/vfx_library/shaders/poison.gdshader"},
-        {"name": "🗿 石化", "path": "res://addons/vfx_library/shaders/petrify.gdshader"},
-        {"name": "👻 隐身", "path": "res://addons/vfx_library/shaders/invisibility.gdshader"},
-        {"name": "💥 溶解", "path": "res://addons/vfx_library/shaders/dissolve.gdshader"},
-        {"name": "⚡ 闪烁", "path": "res://addons/vfx_library/shaders/blink.gdshader"},
-        {"name": "🌊 水面", "path": "res://addons/vfx_library/shaders/water_surface.gdshader"},
-        {"name": "🔆 闪白", "path": "res://addons/vfx_library/shaders/flash_white.gdshader"},
-        {"name": "🎨 变色", "path": "res://addons/vfx_library/shaders/color_change.gdshader"},
-        {"name": "🌫️ 雾气", "path": "res://addons/vfx_library/shaders/fog.gdshader"},
-        {"name": "🔥 热扭曲", "path": "res://addons/vfx_library/shaders/heat_distortion.gdshader"},
-        {"name": "🌀 径向模糊", "path": "res://addons/vfx_library/shaders/radial_blur.gdshader"},
-        {"name": "🎭 灰度", "path": "res://addons/vfx_library/shaders/grayscale.gdshader"},
-        {"name": "🌈 色差", "path": "res://addons/vfx_library/shaders/chromatic_aberration.gdshader"},
-        {"name": "🔲 晕影", "path": "res://addons/vfx_library/shaders/vignette.gdshader"},
-        {"name": "✨ 轮廓发光", "path": "res://addons/vfx_library/shaders/outline_glow.gdshader"},
+        {"name": "SHADER_BURNING", "path": "res://addons/vfx_library/shaders/burning.gdshader"},
+        {"name": "SHADER_FROZEN", "path": "res://addons/vfx_library/shaders/frozen.gdshader"},
+        {"name": "SHADER_POISON", "path": "res://addons/vfx_library/shaders/poison.gdshader"},
+        {"name": "SHADER_PETRIFY", "path": "res://addons/vfx_library/shaders/petrify.gdshader"},
+        {"name": "SHADER_INVISIBILITY", "path": "res://addons/vfx_library/shaders/invisibility.gdshader"},
+        {"name": "SHADER_DISSOLVE", "path": "res://addons/vfx_library/shaders/dissolve.gdshader"},
+        {"name": "SHADER_BLINK", "path": "res://addons/vfx_library/shaders/blink.gdshader"},
+        {"name": "SHADER_WATER_SURFACE", "path": "res://addons/vfx_library/shaders/water_surface.gdshader"},
+        {"name": "SHADER_FLASH_WHITE", "path": "res://addons/vfx_library/shaders/flash_white.gdshader"},
+        {"name": "SHADER_COLOR_CHANGE", "path": "res://addons/vfx_library/shaders/color_change.gdshader"},
+        {"name": "SHADER_FOG", "path": "res://addons/vfx_library/shaders/fog.gdshader"},
+        {"name": "SHADER_HEAT_DISTORTION", "path": "res://addons/vfx_library/shaders/heat_distortion.gdshader"},
+        {"name": "SHADER_RADIAL_BLUR", "path": "res://addons/vfx_library/shaders/radial_blur.gdshader"},
+        {"name": "SHADER_GRAYSCALE", "path": "res://addons/vfx_library/shaders/grayscale.gdshader"},
+        {"name": "SHADER_CHROMATIC", "path": "res://addons/vfx_library/shaders/chromatic_aberration.gdshader"},
+        {"name": "SHADER_VIGNETTE", "path": "res://addons/vfx_library/shaders/vignette.gdshader"},
+        {"name": "SHADER_OUTLINE_GLOW", "path": "res://addons/vfx_library/shaders/outline_glow.gdshader"},
     ]
-    
+
     for shader_data in shaders_data:
-        shader_list.add_item(shader_data["name"])
-    
-    print("✓ Shader列表初始化完成，共 %d 个shader" % shaders_data.size())
+        shader_list.add_item(tr(shader_data["name"]))
+
+    print("✓ " + tr("SHADER_LIST_LOADED") % shaders_data.size())
 
 
 func _on_shader_selected(index: int):
     """当shader被选中"""
     current_shader_index = index
-    print("选择shader: %s" % shaders_data[index]["name"])
+    print(tr("SHADER_SELECTED") % tr(shaders_data[index]["name"]))
 
 
 func _on_apply_shader_pressed():
     """应用选中的shader到测试精灵"""
     if current_shader_index < 0 or current_shader_index >= shaders_data.size():
-        print("请先选择一个shader")
+        print(tr("SELECT_SHADER"))
         return
     
     # 重置动画时间
@@ -394,7 +400,7 @@ func _on_apply_shader_pressed():
     # 加载shader
     var shader = load(shader_path)
     if not shader:
-        push_error("无法加载shader: %s" % shader_path)
+        push_error(tr("SHADER_LOAD_FAILED") % shader_path)
         return
     
     # 创建ShaderMaterial并应用
@@ -403,18 +409,18 @@ func _on_apply_shader_pressed():
     
     # 根据不同shader设置参数
     var shader_name = shader_data["name"]
-    if "燃烧" in shader_name:
+    if shader_name == "SHADER_BURNING":
         shader_mat.set_shader_parameter("burn_amount", 0.5)
-    elif "冰冻" in shader_name:
+    elif shader_name == "SHADER_FROZEN":
         shader_mat.set_shader_parameter("freeze_amount", 0.7)
-    elif "中毒" in shader_name:
+    elif shader_name == "SHADER_POISON":
         shader_mat.set_shader_parameter("poison_amount", 0.6)
-    elif "石化" in shader_name:
+    elif shader_name == "SHADER_PETRIFY":
         shader_mat.set_shader_parameter("petrify_amount", 0.8)
-    elif "隐身" in shader_name:
+    elif shader_name == "SHADER_INVISIBILITY":
         shader_mat.set_shader_parameter("invisibility_amount", 0.6)
         shader_mat.set_shader_parameter("distortion_amount", 0.02)
-    elif "溶解" in shader_name:
+    elif shader_name == "SHADER_DISSOLVE":
         shader_mat.set_shader_parameter("dissolve_amount", 0.5)
         # 创建简单的噪声纹理
         var noise_image = Image.create(256, 256, false, Image.FORMAT_L8)
@@ -424,20 +430,20 @@ func _on_apply_shader_pressed():
                 noise_image.set_pixel(x, y, Color(noise_val, noise_val, noise_val))
         var noise_texture = ImageTexture.create_from_image(noise_image)
         shader_mat.set_shader_parameter("dissolve_texture", noise_texture)
-    elif "闪烁" in shader_name:
+    elif shader_name == "SHADER_BLINK":
         shader_mat.set_shader_parameter("blink_speed", 10.0)
         shader_mat.set_shader_parameter("min_alpha", 0.3)
-    elif "水面" in shader_name:
+    elif shader_name == "SHADER_WATER_SURFACE":
         shader_mat.set_shader_parameter("wave_speed", 2.0)
         shader_mat.set_shader_parameter("wave_strength", 0.02)
-    elif "闪白" in shader_name:
+    elif shader_name == "SHADER_FLASH_WHITE":
         shader_mat.set_shader_parameter("flash_amount", 0.8)
-    elif "变色" in shader_name:
+    elif shader_name == "SHADER_COLOR_CHANGE":
         shader_mat.set_shader_parameter("target_color", Color(1.0, 0.3, 0.3))
         shader_mat.set_shader_parameter("mix_amount", 0.7)
-    elif "雾气" in shader_name:
+    elif shader_name == "SHADER_FOG":
         shader_mat.set_shader_parameter("fog_density", 0.5)
-    elif "热扭曲" in shader_name:
+    elif shader_name == "SHADER_HEAT_DISTORTION":
         # 增大扭曲强度，并生成噪声纹理
         shader_mat.set_shader_parameter("distortion_amount", 0.05)
         shader_mat.set_shader_parameter("distortion_speed", 3.0)
@@ -450,32 +456,32 @@ func _on_apply_shader_pressed():
                 noise_image.set_pixel(x, y, Color(noise_r, noise_g, 0.5))
         var noise_texture = ImageTexture.create_from_image(noise_image)
         shader_mat.set_shader_parameter("noise_texture", noise_texture)
-    elif "径向模糊" in shader_name:
+    elif shader_name == "SHADER_RADIAL_BLUR":
         # 增大模糊强度
         shader_mat.set_shader_parameter("blur_strength", 0.08)
         shader_mat.set_shader_parameter("blur_center", Vector2(0.5, 0.5))
         shader_mat.set_shader_parameter("samples", 20)
-    elif "灰度" in shader_name:
+    elif shader_name == "SHADER_GRAYSCALE":
         shader_mat.set_shader_parameter("grayscale_amount", 0.8)
-    elif "色差" in shader_name:
+    elif shader_name == "SHADER_CHROMATIC":
         # 增大色差偏移量
         shader_mat.set_shader_parameter("aberration_amount", 0.015)
         shader_mat.set_shader_parameter("aberration_direction", Vector2(1.0, 0.0))
-    elif "晕影" in shader_name:
+    elif shader_name == "SHADER_VIGNETTE":
         shader_mat.set_shader_parameter("vignette_intensity", 0.5)
-    elif "轮廓发光" in shader_name:
+    elif shader_name == "SHADER_OUTLINE_GLOW":
         shader_mat.set_shader_parameter("outline_color", Color(0.3, 0.8, 1.0))
         shader_mat.set_shader_parameter("outline_width", 2.0)
     
     shader_test_sprite.material = shader_mat
-    
-    print("✓ 已应用shader: %s" % shader_data["name"])
+
+    print("✓ " + tr("SHADER_APPLIED") % tr(shader_data["name"]))
 
 
 func _on_remove_shader_pressed():
     """移除测试精灵的shader"""
     shader_test_sprite.material = null
-    print("✓ 已移除shader")
+    print("✓ " + tr("SHADER_REMOVED"))
 
 
 func _input(event: InputEvent):
@@ -509,82 +515,67 @@ func _process(delta: float):
         return
     
     # 为不同shader添加动画
-    if "燃烧" in shader_name:
-        # 燃烧：从下往上烧
+    if shader_name == "SHADER_BURNING":
         var burn = (sin(shader_animation_time * 0.5) + 1.0) * 0.5
         shader_mat.set_shader_parameter("burn_amount", burn)
-    
-    elif "冰冻" in shader_name:
-        # 冰冻：渐进冰冻效果
+
+    elif shader_name == "SHADER_FROZEN":
         var freeze = (sin(shader_animation_time * 0.8) + 1.0) * 0.5
         shader_mat.set_shader_parameter("freeze_amount", freeze)
-    
-    elif "中毒" in shader_name:
-        # 中毒：脉动效果
+
+    elif shader_name == "SHADER_POISON":
         var poison = 0.4 + sin(shader_animation_time * 3.0) * 0.3
         shader_mat.set_shader_parameter("poison_amount", poison)
-    
-    elif "石化" in shader_name:
-        # 石化：从下往上石化
+
+    elif shader_name == "SHADER_PETRIFY":
         var petrify = (sin(shader_animation_time * 0.6) + 1.0) * 0.5
         shader_mat.set_shader_parameter("petrify_amount", petrify)
-    
-    elif "隐身" in shader_name:
-        # 隐身：淡入淡出
+
+    elif shader_name == "SHADER_INVISIBILITY":
         var invis = (sin(shader_animation_time * 1.0) + 1.0) * 0.5
         shader_mat.set_shader_parameter("invisibility_amount", invis)
-    
-    elif "溶解" in shader_name:
-        # 溶解：循环溶解
+
+    elif shader_name == "SHADER_DISSOLVE":
         var dissolve = (sin(shader_animation_time * 0.7) + 1.0) * 0.5
         shader_mat.set_shader_parameter("dissolve_amount", dissolve)
-    
-    elif "闪白" in shader_name:
-        # 闪白：快速闪烁
+
+    elif shader_name == "SHADER_FLASH_WHITE":
         var flash = max(0.0, sin(shader_animation_time * 5.0))
         shader_mat.set_shader_parameter("flash_amount", flash)
-    
-    elif "变色" in shader_name:
-        # 变色：在不同颜色之间切换
+
+    elif shader_name == "SHADER_COLOR_CHANGE":
         var hue = shader_animation_time * 0.3
         var color = Color.from_hsv(fmod(hue, 1.0), 0.8, 1.0)
         shader_mat.set_shader_parameter("target_color", color)
-    
-    elif "雾气" in shader_name:
-        # 雾气：浓度变化
+
+    elif shader_name == "SHADER_FOG":
         var fog = 0.3 + sin(shader_animation_time * 1.5) * 0.2
         shader_mat.set_shader_parameter("fog_density", fog)
-    
-    elif "热扭曲" in shader_name:
-        # 热扭曲：强度波动（扭曲效果更明显）
+
+    elif shader_name == "SHADER_HEAT_DISTORTION":
         var distortion = 0.03 + sin(shader_animation_time * 2.0) * 0.03
         shader_mat.set_shader_parameter("distortion_amount", distortion)
-    
-    elif "径向模糊" in shader_name:
-        # 径向模糊：脉冲效果（从中心向外）
+
+    elif shader_name == "SHADER_RADIAL_BLUR":
         var blur = 0.04 + abs(sin(shader_animation_time * 1.5)) * 0.06
         shader_mat.set_shader_parameter("blur_strength", blur)
-    
-    elif "灰度" in shader_name:
-        # 灰度：渐变
+
+    elif shader_name == "SHADER_GRAYSCALE":
         var grayscale = (sin(shader_animation_time * 1.0) + 1.0) * 0.5
         shader_mat.set_shader_parameter("grayscale_amount", grayscale)
-    
-    elif "色差" in shader_name:
-        # 色差：RGB分离波动，并改变方向
+
+    elif shader_name == "SHADER_CHROMATIC":
         var aberration = 0.008 + abs(sin(shader_animation_time * 2.0)) * 0.015
         var angle = shader_animation_time * 0.5
         var direction = Vector2(cos(angle), sin(angle))
         shader_mat.set_shader_parameter("aberration_amount", aberration)
         shader_mat.set_shader_parameter("aberration_direction", direction)
-    
-    elif "晕影" in shader_name:
-        # 晕影：呼吸效果
+
+    elif shader_name == "SHADER_VIGNETTE":
         var vignette = 0.3 + sin(shader_animation_time * 1.5) * 0.3
         shader_mat.set_shader_parameter("vignette_intensity", vignette)
-    
-    elif "轮廓发光" in shader_name:
-        # 轮廓发光：颜色循环
+
+    elif shader_name == "SHADER_OUTLINE_GLOW":
         var hue = shader_animation_time * 0.5
         var outline_color = Color.from_hsv(fmod(hue, 1.0), 0.8, 1.0)
         shader_mat.set_shader_parameter("outline_color", outline_color)
