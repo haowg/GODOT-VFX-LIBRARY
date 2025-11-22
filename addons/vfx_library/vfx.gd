@@ -87,8 +87,9 @@ func spawn_particles(pos: Vector2, particle_color: Color, count: int = 15) -> vo
         particles.queue_free()
         return
     
-    scene_root.add_child(particles)
     particles.global_position = pos
+    scene_root.add_child(particles)
+    
     particles.amount = clampi(count, 1, 100)  # 限制粒子数量
     
     # 动态创建颜色渐变
@@ -185,8 +186,8 @@ func spawn_energy_burst(pos: Vector2, color: Color = Color(0.5, 0.8, 1.0)) -> vo
         energy.queue_free()
         return
     
-    scene_root.add_child(energy)
     energy.global_position = pos
+    scene_root.add_child(energy)    
     energy.emitting = true
     
     # 动态修改颜色渐变
@@ -225,8 +226,8 @@ func _spawn_oneshot_effect(scene: PackedScene, pos: Vector2, lifetime: float) ->
         effect.queue_free()
         return
     
-    scene_root.add_child(effect)
     effect.global_position = pos
+    scene_root.add_child(effect)
     effect.emitting = true
     
     _cleanup_particle_delayed(effect, lifetime)
