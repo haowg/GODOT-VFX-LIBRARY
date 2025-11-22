@@ -111,8 +111,8 @@ func create_wood_debris(pos: Vector2, direction: Vector2 = Vector2.RIGHT, parent
         return
 
     var debris = WOOD_DEBRIS_SCENE.instantiate()
-    parent.add_child(debris)
     debris.global_position = pos
+    parent.add_child(debris)    
     debris.direction = direction
     debris.restart()  # 使用 restart() 确保 one_shot 粒子正确发射
 
@@ -131,8 +131,8 @@ func create_water_splash(pos: Vector2, size: float = 1.0, parent: Node = null) -
         return
 
     var splash = WATER_SPLASH_SCENE.instantiate()
-    parent.add_child(splash)
     splash.global_position = pos
+    parent.add_child(splash)    
     splash.amount = int(25 * size)
     # 降低速度增长系数，避免崩太远
     # 场景基准: 80-150, 使用渐进式增长而非线性
@@ -238,8 +238,9 @@ func spawn_lightning_chain(pos: Vector2) -> void:
         return
 
     var lightning = LIGHTNING_CHAIN_SCENE.instantiate()
-    scene_root.add_child(lightning)
     lightning.global_position = pos
+    scene_root.add_child(lightning)
+    
 
     # 显式重启所有子粒子发射器，确保即使场景文件被编辑器修改也能正常工作
     for child in lightning.get_children():
@@ -257,8 +258,8 @@ func spawn_ice_frost(pos: Vector2) -> void:
         return
 
     var frost = ICE_FROST_SCENE.instantiate()
-    scene_root.add_child(frost)
     frost.global_position = pos
+    scene_root.add_child(frost)    
     frost.restart()  # 使用 restart() 而不是设置 emitting，更可靠
 
     _cleanup_delayed(frost, 1.0)
