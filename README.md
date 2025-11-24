@@ -6,7 +6,7 @@
 
 **[中文版](README_CN.md) | English**
 
-![VFX Library Preview](preview.png)
+![VFX Library Preview](preview_en.png)
 
 A comprehensive collection of **35+ particle effects** and **17+ shaders** for Godot 4, designed specifically for action games like Metroidvania and platformers.
 
