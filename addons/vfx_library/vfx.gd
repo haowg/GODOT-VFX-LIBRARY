@@ -18,6 +18,26 @@ const DASH_TRAIL_SCENE = preload("res://addons/vfx_library/effects/dash_trail.ts
 const JUMP_DUST_SCENE = preload("res://addons/vfx_library/effects/jump_dust.tscn")
 const WALL_SLIDE_SPARK_SCENE = preload("res://addons/vfx_library/effects/wall_slide_spark.tscn")
 
+# ===== Time Scale / Freeze Frame (stacked) =====
+# 多处逻辑可能同时触发顿帧。这里用 token 方式叠加：
+# - 生效时取所有请求中的最小 time_scale
+# - 每个请求结束只撤销自己，避免互相覆盖导致“有时慢放有时没有”
+var _time_scale_requests: Dictionary = {} # token -> requested scale
+var _time_scale_token_counter: int = 0
+var _time_scale_original: float = 1.0
+
+func _apply_time_scale_requests() -> void:
+	if _time_scale_requests.is_empty():
+		Engine.time_scale = _time_scale_original
+		return
+
+	var min_req: float = 1.0
+	for v in _time_scale_requests.values():
+		min_req = minf(min_req, float(v))
+
+	# Never speed up above baseline.
+	Engine.time_scale = minf(_time_scale_original, min_req)
+
 
 # ===== 屏幕特效 =====
 
@@ -49,14 +69,20 @@ func screen_shake(intensity: float = 10.0, duration: float = 0.2) -> void:
 ## 时间冻结（受击暂停）
 ## 注意：会影响整个游戏的时间流逝
 func freeze_frame(duration: float = 0.1, time_scale: float = 0.05) -> void:
-	var original_time_scale = Engine.time_scale
-	Engine.time_scale = clamp(time_scale, 0.0, 1.0)
-	
+	var token := _time_scale_token_counter
+	_time_scale_token_counter += 1
+
+	if _time_scale_requests.is_empty():
+		_time_scale_original = Engine.time_scale
+
+	_time_scale_requests[token] = clampf(time_scale, 0.0, 1.0)
+	_apply_time_scale_requests()
+
 	# 使用物理帧计时器，不受 time_scale 影响
 	await get_tree().create_timer(duration, true, false, true).timeout
-	
-	# 恢复原始时间缩放，而非硬编码为 1.0
-	Engine.time_scale = original_time_scale
+
+	_time_scale_requests.erase(token)
+	_apply_time_scale_requests()
 
 
 ## 暴击特效组合
