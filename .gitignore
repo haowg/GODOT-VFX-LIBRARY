@@ -122,6 +122,7 @@ Temporary Items
 *.elc
 auto-save-list
 tramp
+.dir-locals.el
 .\#*
 
 # Project-specific ignores
