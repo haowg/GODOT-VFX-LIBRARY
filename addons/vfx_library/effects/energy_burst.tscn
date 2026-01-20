@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://energy_burst_001"]
+[gd_scene load_steps=4 format=3 uid="uid://bos4jnyraqbgx"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_energy"]
 blend_mode = 1
@@ -13,7 +13,6 @@ colors = PackedColorArray(1, 1, 1, 1, 0.5, 0.8, 1, 1, 0.2, 0.4, 0.8, 0)
 
 [node name="EnergyBurst" type="CPUParticles2D"]
 material = SubResource("CanvasItemMaterial_energy")
-emitting = true
 amount = 30
 lifetime = 0.8
 one_shot = true

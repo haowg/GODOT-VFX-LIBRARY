@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://campfire_smoke_001"]
+[gd_scene load_steps=3 format=3 uid="uid://d17xepbi5y1ob"]
 
 [sub_resource type="Curve" id="Curve_smoke_scale"]
 _data = [Vector2(0, 0.3), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.8), 0.0, 0.0, 0, 0]
@@ -9,7 +9,6 @@ offsets = PackedFloat32Array(0, 0.5, 1)
 colors = PackedColorArray(0.3, 0.3, 0.3, 0.5, 0.5, 0.5, 0.5, 0.3, 0.6, 0.6, 0.6, 0)
 
 [node name="CampfireSmoke" type="CPUParticles2D"]
-emitting = true
 amount = 15
 lifetime = 3.0
 preprocess = 1.5

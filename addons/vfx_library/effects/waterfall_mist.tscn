@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://waterfall_mist_001"]
+[gd_scene load_steps=3 format=3 uid="uid://ct3lhalkd3ih4"]
 
 [sub_resource type="Curve" id="Curve_mist_scale"]
 _data = [Vector2(0, 0.2), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
@@ -9,13 +9,12 @@ offsets = PackedFloat32Array(0, 0.6, 1)
 colors = PackedColorArray(0.7, 0.8, 0.9, 0.4, 0.8, 0.85, 0.95, 0.3, 0.9, 0.9, 1, 0)
 
 [node name="WaterfallMist" type="CPUParticles2D"]
-emitting = true
 amount = 30
 lifetime = 2.5
 preprocess = 1.5
 randomness = 0.4
 emission_shape = 2
-emission_rect_extents = Vector2(40, 10)
+emission_sphere_radius = 1.0
 direction = Vector2(0, -1)
 spread = 40.0
 gravity = Vector2(0, -30)

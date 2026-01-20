@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://fireball_trail_001"]
+[gd_scene load_steps=3 format=3 uid="uid://bn6yh7y7wftux"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fireball"]
 blend_mode = 1
@@ -9,7 +9,6 @@ colors = PackedColorArray(1, 1, 0.8, 1, 1, 0.7, 0.2, 1, 0.9, 0.3, 0, 0.8, 0.3, 0
 
 [node name="FireballTrail" type="CPUParticles2D"]
 material = SubResource("CanvasItemMaterial_fireball")
-emitting = true
 amount = 20
 lifetime = 0.5
 randomness = 0.3

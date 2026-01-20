@@ -9,7 +9,6 @@ colors = PackedColorArray(1, 1, 1, 1, 0.8, 0.6, 0.4, 0.8, 0.3, 0.3, 0.3, 0)
 
 [node name="CombatParticle" type="CPUParticles2D"]
 material = SubResource("CanvasItemMaterial_combat")
-emitting = true
 amount = 15
 lifetime = 0.6
 one_shot = true

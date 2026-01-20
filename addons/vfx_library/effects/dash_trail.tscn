@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dash_trail_001"]
+[gd_scene load_steps=3 format=3 uid="uid://ja5pup82xu4y"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_dash"]
 blend_mode = 1
@@ -9,7 +9,6 @@ colors = PackedColorArray(0.8, 0.9, 1, 0.6, 0.5, 0.7, 1, 0.4, 0.3, 0.5, 0.8, 0)
 
 [node name="DashTrail" type="CPUParticles2D"]
 material = SubResource("CanvasItemMaterial_dash")
-emitting = true
 amount = 12
 lifetime = 0.3
 explosiveness = 0.3

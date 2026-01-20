@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://blood_splash_001"]
+[gd_scene load_steps=3 format=3 uid="uid://dgotdf8tvfrvc"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_blood"]
 blend_mode = 1
@@ -9,7 +9,7 @@ colors = PackedColorArray(1, 0.2, 0.2, 1, 0.8, 0, 0, 1, 0.4, 0, 0, 0.8, 0.2, 0, 
 
 [node name="BloodSplash" type="CPUParticles2D"]
 material = SubResource("CanvasItemMaterial_blood")
-emitting = true
+emitting = false
 amount = 20
 lifetime = 0.4
 one_shot = true

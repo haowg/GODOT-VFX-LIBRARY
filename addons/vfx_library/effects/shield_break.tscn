@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://shield_break_001"]
+[gd_scene load_steps=3 format=3 uid="uid://jtt63ym3d6gb"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_shield"]
 blend_mode = 1
@@ -9,7 +9,7 @@ colors = PackedColorArray(0.5, 0.8, 1, 1, 0.3, 0.6, 1, 0.8, 0.2, 0.4, 0.8, 0)
 
 [node name="ShieldBreak" type="CPUParticles2D"]
 material = SubResource("CanvasItemMaterial_shield")
-emitting = true
+emitting = false
 amount = 25
 lifetime = 0.6
 one_shot = true

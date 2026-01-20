@@ -1,17 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://snow_flakes_001"]
+[gd_scene load_steps=2 format=3 uid="uid://yh8rv61o3i35"]
 
 [sub_resource type="Gradient" id="Gradient_snow"]
 offsets = PackedFloat32Array(0, 0.5, 1)
 colors = PackedColorArray(1, 1, 1, 1, 0.95, 0.95, 1, 0.8, 0.9, 0.9, 0.95, 0)
 
 [node name="SnowFlakes" type="CPUParticles2D"]
-emitting = true
 amount = 50
 lifetime = 5.0
 preprocess = 3.0
 randomness = 0.5
 emission_shape = 2
-emission_rect_extents = Vector2(300, 10)
+emission_sphere_radius = 1.0
 direction = Vector2(0.3, 1)
 spread = 15.0
 gravity = Vector2(10, 50)
