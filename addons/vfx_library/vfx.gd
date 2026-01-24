@@ -25,7 +25,15 @@ const WALL_SLIDE_SPARK_SCENE = preload("res://addons/vfx_library/effects/wall_sl
 var _time_scale_requests: Dictionary = {} # token -> requested scale
 var _time_scale_token_counter: int = 0
 var _time_scale_original: float = 1.0
+func _ready() -> void:
+	# 确保在场景切换时重置time_scale
+	if get_tree():
+		get_tree().tree_exiting.connect(_cleanup_on_exit)
 
+func _cleanup_on_exit() -> void:
+	# 清理所有挂起的time_scale请求
+	_time_scale_requests.clear()
+	Engine.time_scale = 1.0
 func _apply_time_scale_requests() -> void:
 	if _time_scale_requests.is_empty():
 		Engine.time_scale = _time_scale_original
@@ -69,6 +77,11 @@ func screen_shake(intensity: float = 10.0, duration: float = 0.2) -> void:
 ## 时间冻结（受击暂停）
 ## 注意：会影响整个游戏的时间流逝
 func freeze_frame(duration: float = 0.1, time_scale: float = 0.05) -> void:
+	# 安全检查：确保节点在场景树中
+	if not is_inside_tree():
+		push_warning("VFX: freeze_frame called when not inside tree")
+		return
+	
 	var token := _time_scale_token_counter
 	_time_scale_token_counter += 1
 
@@ -79,7 +92,18 @@ func freeze_frame(duration: float = 0.1, time_scale: float = 0.05) -> void:
 	_apply_time_scale_requests()
 
 	# 使用物理帧计时器，不受 time_scale 影响
-	await get_tree().create_timer(duration, true, false, true).timeout
+	# 保存timer引用以便清理
+	var timer = get_tree().create_timer(duration, true, false, true)
+	if not is_instance_valid(timer):
+		_time_scale_requests.erase(token)
+		_apply_time_scale_requests()
+		return
+	
+	await timer.timeout
+	
+	# 清理时再次检查节点是否仍在场景树中
+	if not is_inside_tree():
+		return
 
 	_time_scale_requests.erase(token)
 	_apply_time_scale_requests()
