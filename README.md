@@ -29,6 +29,10 @@ A comprehensive collection of **35+ particle effects** and **17+ shaders** for G
 - **Screen Effects**: Camera shake, freeze frame, damage numbers
 - **Auto-cleanup**: Smart memory management for one-shot effects
 
+## 🎮 Games Using This Library
+
+**[Land of Oblivion](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)** - An epic action-adventure game featuring stunning visual effects powered by this VFX library.
+
 ## 🚀 Quick Start
 
 ### Installation
