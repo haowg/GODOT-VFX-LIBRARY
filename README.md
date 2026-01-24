@@ -37,7 +37,7 @@ A comprehensive collection of **35+ particle effects** and **17+ shaders** for G
 
 [![Land of Oblivion](LandOfOblivion.png)](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)
 
-**[Land of Oblivion](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)** is a dark-fantasy 2D action-adventure built with Godot.
+**[Land of Oblivion](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)** is a 2D action-adventure built with Godot.
 
 This VFX library is used in production for:
 

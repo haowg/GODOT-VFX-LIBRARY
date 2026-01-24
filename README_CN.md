@@ -40,7 +40,7 @@
 
 [![遗忘之地 (Land of Oblivion)](LandOfOblivion.png)](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)
 
-**[遗忘之地 (Land of Oblivion)](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)** 是一款使用 Godot 开发的黑暗奇幻 2D 动作冒险游戏。
+**[遗忘之地 (Land of Oblivion)](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)** 是一款使用 Godot 开发的 2D 动作冒险游戏。
 
 本特效库在游戏实战中用于：
 
