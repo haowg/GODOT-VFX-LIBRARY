@@ -10,6 +10,10 @@
 
 A comprehensive collection of **35+ particle effects** and **17+ shaders** for Godot 4, designed specifically for action games like Metroidvania and platformers.
 
+**Production showcase:** [Land of Oblivion](https://store.steampowered.com/app/2457740/Land_of_Oblivion/) — if you like dark-fantasy 2D action-adventure games, wishlisting helps a ton.
+
+[![Wishlist on Steam](https://img.shields.io/badge/Steam-Wishlist%20Now-1b2838?logo=steam&logoColor=white)](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)
+
 ## ✨ Features
 
 ### 🎆 Particle Effects (35+)
@@ -29,9 +33,23 @@ A comprehensive collection of **35+ particle effects** and **17+ shaders** for G
 - **Screen Effects**: Camera shake, freeze frame, damage numbers
 - **Auto-cleanup**: Smart memory management for one-shot effects
 
-## 🎮 Games Using This Library
+## 🎮 Production Showcase
 
-**[Land of Oblivion](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)** - An epic action-adventure game featuring stunning visual effects powered by this VFX library.
+[![Land of Oblivion](LandOfOblivion.png)](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)
+
+**[Land of Oblivion](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)** is a dark-fantasy 2D action-adventure built with Godot.
+
+This VFX library is used in production for:
+
+- Combat hit feedback and impact VFX
+- Spell visuals and status effects
+- Screen shake / hit-stop style screen effects
+- Environmental ambience
+
+👉 Please consider wishlisting on Steam (it directly helps visibility):
+
+[![Wishlist on Steam](https://img.shields.io/badge/Steam-Wishlist%20Now-1b2838?logo=steam&logoColor=white)](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)
+[![Follow on Steam](https://img.shields.io/badge/Steam-Follow-1b2838?logo=steam&logoColor=white)](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)
 
 ## 🚀 Quick Start
 

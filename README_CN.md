@@ -10,6 +10,10 @@
 
 为 Godot 4 提供的综合性特效库，包含 **35+ 粒子特效** 和 **17+ 着色器**，专为类恶魔城和平台跳跃等动作游戏设计。
 
+**实战展示：**[遗忘之地 (Land of Oblivion)](https://store.steampowered.com/app/2457740/Land_of_Oblivion/) —— 如果你喜欢黑暗奇幻 2D 动作冒险，欢迎加个愿望单（对曝光帮助很大）。
+
+[![Steam Wishlist](https://img.shields.io/badge/Steam-Wishlist%20Now-1b2838?logo=steam&logoColor=white)](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)
+
 ## ✨ 特性
 
 ### 🎆 粒子特效 (35+)
@@ -32,9 +36,23 @@
 - **屏幕效果**: 屏幕震动、冻结帧、伤害数字
 - **自动清理**: 一次性特效的智能内存管理
 
-## 🎮 使用本库的游戏
+## 🎮 实战展示（Steam 愿望单）
 
-**[遗忘之地 (Land of Oblivion)](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)** - 一款史诗级动作冒险游戏，使用本特效库实现了令人惊艳的视觉效果。
+[![遗忘之地 (Land of Oblivion)](LandOfOblivion.png)](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)
+
+**[遗忘之地 (Land of Oblivion)](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)** 是一款使用 Godot 开发的黑暗奇幻 2D 动作冒险游戏。
+
+本特效库在游戏实战中用于：
+
+- 战斗打击反馈与冲击特效
+- 法术视觉与各种状态效果
+- 屏幕震动 / 顿帧等屏幕反馈
+- 环境氛围粒子
+
+👉 欢迎在 Steam 上加个愿望单（真的很重要）：
+
+[![Steam Wishlist](https://img.shields.io/badge/Steam-Wishlist%20Now-1b2838?logo=steam&logoColor=white)](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)
+[![Steam Follow](https://img.shields.io/badge/Steam-Follow-1b2838?logo=steam&logoColor=white)](https://store.steampowered.com/app/2457740/Land_of_Oblivion/)
 
 ## 🚀 快速开始
 
