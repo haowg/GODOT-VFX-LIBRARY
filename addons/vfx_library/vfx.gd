@@ -26,9 +26,8 @@ var _time_scale_requests: Dictionary = {} # token -> requested scale
 var _time_scale_token_counter: int = 0
 var _time_scale_original: float = 1.0
 func _ready() -> void:
-	# 确保在场景切换时重置time_scale
-	if get_tree():
-		get_tree().tree_exiting.connect(_cleanup_on_exit)
+	# 在退出场景树时重置 time_scale（tree_exiting 是 Node 的信号，不是 SceneTree 的属性）
+	tree_exiting.connect(_cleanup_on_exit)
 
 func _cleanup_on_exit() -> void:
 	# 清理所有挂起的time_scale请求
