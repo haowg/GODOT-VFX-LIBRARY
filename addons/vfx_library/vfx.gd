@@ -75,6 +75,7 @@ func screen_shake(intensity: float = 10.0, duration: float = 0.2) -> void:
 
 ## 时间冻结（受击暂停）
 ## 注意：会影响整个游戏的时间流逝
+## 这是一个非阻塞函数，使用回调而不是await，避免在物理处理期间产生SelfList错误
 func freeze_frame(duration: float = 0.1, time_scale: float = 0.05) -> void:
 	# 安全检查：确保节点在场景树中
 	if not is_inside_tree():
@@ -90,22 +91,14 @@ func freeze_frame(duration: float = 0.1, time_scale: float = 0.05) -> void:
 	_time_scale_requests[token] = clampf(time_scale, 0.0, 1.0)
 	_apply_time_scale_requests()
 
-	# 使用物理帧计时器，不受 time_scale 影响
-	# 保存timer引用以便清理
-	var timer = get_tree().create_timer(duration, true, false, true)
-	if not is_instance_valid(timer):
-		_time_scale_requests.erase(token)
-		_apply_time_scale_requests()
-		return
-	
-	await timer.timeout
-	
-	# 清理时再次检查节点是否仍在场景树中
-	if not is_inside_tree():
-		return
-
-	_time_scale_requests.erase(token)
-	_apply_time_scale_requests()
+	# 使用call_deferred来延迟清理，而不是await
+	# 这避免了在物理处理期间创建Timer的问题
+	get_tree().create_timer(duration, true, false, true).timeout.connect(
+		func():
+			if is_inside_tree():
+				_time_scale_requests.erase(token)
+				_apply_time_scale_requests()
+	)
 
 
 ## 暴击特效组合
